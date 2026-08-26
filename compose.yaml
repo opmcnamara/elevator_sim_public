@@ -1,0 +1,23 @@
+services:
+  batch:
+    build:
+      context: .
+    image: kkr-elevator-sim
+    working_dir: /app
+    entrypoint:
+      - bash
+      - scripts/batch_runner.sh
+    volumes:
+      - "${INPUT_DIR:-./test_files}:/input:ro"
+      - "${RESULTS_DIR:-./test_results}:/results"
+    environment:
+      PYTHON: "${PYTHON:-python3}"
+      ELEVATORS: "${ELEVATORS:-10}"
+      FLOORS: "${FLOORS:-50}"
+      CAPACITY: "${CAPACITY:-10}"
+      START_FLOOR: "${START_FLOOR:-1}"
+      EXPRESS_ELEVATORS: "${EXPRESS_ELEVATORS:-0}"
+      EXPRESS_FLOORS: "${EXPRESS_FLOORS:-}"
+      SCHEDULERS: "${SCHEDULERS:-eta nearest round-robin}"
+      ACCEPTABLE_WAIT: "${ACCEPTABLE_WAIT:-30}"
+      LATE_WAIT_MULTIPLIER: "${LATE_WAIT_MULTIPLIER:-10}"

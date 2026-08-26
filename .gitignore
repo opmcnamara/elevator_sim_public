@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+elev-sim-venv/
+.DS_Store
+.Rhistory
+
+dist/
+build/
+*.egg-info/
+
+# Local notes and superseded working files.
+Untitled-1.md
+scripts/generate_poisson_requests_old.py
+
+# Reproducible generated request sets and simulation artifacts.
+simulation_output/
+test_output/
+test_results/
+test_results_old/
+test_files/
+scripts/analyze_standard_results.py
+scripts/compare_wait_results.py
+example_output/
+work/
+*.log
+*.prof
+*.zip
+
+# Legacy result directory retained only for manual migration to test_results/.
+outputs/

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "KKR_take_home"
+version = "1.0.0"
+description = "A discrete-time destination-dispatch elevator simulator"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["matplotlib>=3.8", "numpy>=1.26", "pandas>=2.0"]
+
+[project.scripts]
+elevator-sim = "elevator_sim.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["elevator_sim*"]
