@@ -31,7 +31,7 @@ waiting passengers board oldest-first up to the configured capacity. This makes
 direction and capacity behavior explicit and guarantees that every passenger in
 a finite request list is eventually served.
 
-A scheduler algorithm controls which elevator new passengers are asigned to, see the 
+A scheduler algorithm controls which elevator new passengers are assigned to, see the 
 Scheduler section below for more details.
 
 # 1. Running the Code
@@ -64,10 +64,10 @@ open a new terminal session.
 
 ## Quick start
 
-The simulation expects a CSV-type file, with the followings fields: `time, id, source, dest`
+The simulation expects a CSV-type file, with the following fields: `time, id, source, dest`
 
 The simulation allows for a configurable number of
-  - elvators
+  - elevators
   - floors in the building
   - maximum passengers per elevator
 
@@ -187,7 +187,7 @@ Two comparison policies are included:
 Additional functionality is built in to optionally reserve some of the cars as express elevators 
 that only serve certain floors. 
 
-These can be passed to the simulation using the `express-elevator, express-floors` arguments. 
+These can be passed to the simulation using the `express-elevators, express-floors` arguments. 
 
 ```bash
 python3 -m elevator_sim example_files/requests_1.csv\
@@ -200,7 +200,7 @@ python3 -m elevator_sim example_files/requests_1.csv\
   --output example_output/express_elevator_test
 ```
 
-In this example, elevators 9 and 10 are express cars. A request is eligble to use an 
+In this example, elevators 9 and 10 are express cars. A request is eligible to use an 
 express elevator only when both the request's source and destination are in the configured floor
 list. It still moves through intermediate floors at one floor per tick but does
 not accept pickups or drop-offs there. At least one regular elevator is always
@@ -208,7 +208,7 @@ required in order to serve the entire building.
 
 # 2. Assumptions, Simplifications, Tradeoffs
 
-## Assumptions & Simplications
+## Assumptions & Simplifications
 
 The following assumptions were given by the assignment description
 
@@ -231,9 +231,9 @@ I made the additional assumptions to keep the logic of the simulation simple
 
 ## Tradeoffs
 
-As with any real-life system, there are tradeoffs to be when considering the efficiency of the system
+As with any real-life system, there are tradeoffs to be made when considering the efficiency of the system
 vs. the practical experience of consumers using said system. In this particular situation, we want to 
-minimize total time per passenger but we should also keeep in mind the satisfaction of the passengers. 
+minimize total time per passenger but we should also keep in mind the satisfaction of the passengers. 
 
 Solely minimizing total time may lead to a frustrating experience using the elevator, therefore
 I decided to sacrifice some global optimality to guarantee several nice properties for passengers
@@ -244,13 +244,13 @@ I decided to sacrifice some global optimality to guarantee several nice properti
   - Note: This only holds under the assumption that offloading and onboarding takes 0 time
 
 
-One can easily imagine a scenario where an elevator reverse direction to pick up a passenger on the floor below
+One can easily imagine a scenario where an elevator reverses direction to pick up a passenger on the floor below
 while someone is currently traveling upward in the elevator. It might technically be more "efficient" overall, 
 but would likely be extremely frustrating to the passenger already on the elevator 
 
 Built into these tradeoffs is the implicit assumption that extra time traveling in the elevator is worse
 than extra time waiting on the floor. This is a reasonable assumption as elevators are cramped and are 
-generally less pleasant to be in than a regualr floor.
+generally less pleasant to be in than a regular floor.
 
 
 # 3. Future Improvements
@@ -259,13 +259,13 @@ There are a variety of improvments that could be made to the simulation
 
 
 - Additional testing
-  - The general testing focusing on a realstic single building.
+  - The general testing focusing on a realistic single building.
   More testing could be done to test the simulation under a variety of configurations. In 
   particular, it could be tested under different type of pathological conditions to see where
   the simulation might break down.
 
 - Code efficiency
-  - The code could be optimized to run faster. In particualr, for the ETA scheduler it does two shadow
+  - The code could be optimized to run faster. In particular, for the ETA scheduler it does two shadow
   simulations per elevator for each new passenger. However, if the new passenger isn't added to the elevator
   then the baseline simulation won't change for the next passenger. Implementing a cache to store these 
   intermediate baseline result would help cut down significantly on computation
@@ -285,7 +285,7 @@ There are a variety of improvments that could be made to the simulation
 
   - Modeling continuous time instead of discrete 
 
-  - Accountng for additional time needed for onboarding/offloading passengers
+  - Accounting for additional time needed for onboarding/offloading passengers
 
   - Accounting for non-constant elevator travel time (can pick up speed)
 
@@ -373,7 +373,7 @@ docker run --rm \
 ## Running batches of test files
 
 The Bash script `scripts/batch_runner.sh` allows a user to run a simulation for each input file
-located in the specifed input directory. The script can be run with a single scheduler, or a list of schedulers
+located in the specified input directory. The script can be run with a single scheduler, or a list of schedulers
 by providing the desired schedulers separated by spaces.
 
 ```bash
@@ -386,7 +386,7 @@ EXPRESS_FLOORS="1,10,20,30,40,50" \
 SCHEDULERS="eta fair-eta nearest round-robin" \
 ACCEPTABLE_WAIT=30 \
 LATE_WAIT_MULTIPLIER=10 \
-bash scripts/run_standard_tests.sh \
+bash scripts/batch_runner.sh \
   "/path/to/input/csv/folder" \
   "/path/to/test_results/folder"
 ```
